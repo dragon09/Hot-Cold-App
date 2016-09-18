@@ -23,8 +23,8 @@ $(document).ready(function(){
 		feedbackHeader.text("Take a Guess!")
 		feedbackHeader.removeClass()
 		$('.newGuess').remove()
-		specialNumber = generateRandomNumber(1, 100)
-		console.log("If it's working... " + specialNumber)
+		// specialNumber = generateRandomNumber(1, 100)
+		// console.log("If it's working... " + specialNumber)
 	}
 
 //Starts new game
@@ -33,12 +33,12 @@ $(document).ready(function(){
 		submitGuessNumber.click(isNumber)
 
 //Submit entry with Enter key to validate number
-$(document).keypress(function (event) {
+$(playerInput).keypress(function (event) {
 		var keyPressed = event.keyCode || event.which;
 		if (keyPressed == '13') {
 			// console.log("Enter was pressed");
 				event.preventDefault();
-        $("#guessButton").submit();
+        // $("#guessButton").submit();
 				// console.log("am I working");
 				isNumber()
     }
@@ -51,6 +51,7 @@ function isNumber() {
 	console.log("You guessed " + userNumber)
 	if(userNumber >= 1 && userNumber <= 100) {
 		increaseCount()
+		//calculatedifference()
 		generateFeedback(specialNumber, userNumber)
 		playerInput.val('')
 	}else{
@@ -68,41 +69,41 @@ function generateRandomNumber(minimum, maximum) {
 return Math.floor((Math.random() * maximum) + minimum)
 }
 
-function generateFeedback(specialNumber, userGuess) {
-	var playerFeedback = specialNumber - userGuess
+function generateFeedback(specialNumber, userNumber) {
+	var playerFeedback = specialNumber - userNumber
 	console.log("You are " + playerFeedback + " numbers away from the correct answer")
 		if (playerFeedback === 0) {
-			feedbackHeader.text("The special number is" + specialNumber + " !")
-			guessList.append('li class= "special newGuess">' + userGuess + '</li>')
+			feedbackHeader.text("The special number is " + specialNumber + " !")
+			guessList.append('<li class= "special newGuess">' + userNumber + '</li>')
 			feedbackHeader.addClass('special')
 
-		}else if (playerFeedback >= 9 && playerFeedback <= -9) {
+		}else if (playerFeedback <= 9 && playerFeedback >= -9) {
 			feedbackHeader.text("Veerry Hot")
-			guessList.append('li class= "very-hot newGuess">' + userGuess + '</li>')
+			guessList.append('<li class= "very-hot newGuess">' + userNumber + '</li>')
 			feedbackHeader.removeClass()
 			feedbackHeader.addClass('very-hot')
 
 		}else if (playerFeedback >= 10 && playerFeedback <= 20 || playerFeedback <= -10 && playerFeedback >= -20) {
 		feedbackHeader.text("Hot")
-		guessList.append('li class= "hot newGuess">' + userGuess + '</li>')
+		guessList.append('<li class= "hot newGuess">' + userNumber + '</li>')
 		feedbackHeader.removeClass()
 		feedbackHeader.addClass('hot')
 
 	}else if (playerFeedback >= 21 && playerFeedback <= 30 || playerFeedback >= -21 && playerFeedback <= -30 ) {
 		feedbackHeader.text("Warmer")
-		guessList.append('li class= "warmer newGuess">' + userGuess + '</li>')
+		guessList.append('<li class= "warmer newGuess">' + userNumber + '</li>')
 		feedbackHeader.removeClass()
 		feedbackHeader.addClass('warmer')
 
 	}else if (playerFeedback >= 31 && playerFeedback <= 49 || playerFeedback >= -31 && playerFeedback <= -49) {
 		feedbackHeader.text("Cold")
-		guessList.append('li class= "cold newGuess">' + userGuess + '</li>')
+		guessList.append('<li class= "cold newGuess">' + userNumber + '</li>')
 		feedbackHeader.removeClass()
 		feedbackHeader.addClass('cold')
 
 	}else {
 		feedbackHeader.text("Ice Cold")
-		guessList.append('<li class= "ice cold newGuess">' + userGuess + '</li>')
+		guessList.append('<li class= "ice cold newGuess">' + userNumber + '</li>')
 	}
 }
 
